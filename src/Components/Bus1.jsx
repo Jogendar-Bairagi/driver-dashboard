@@ -41,12 +41,12 @@ const Bus1 = () => {
     const locRef = ref(db, "drivers/driver1");
     onValue(locRef, (snapshot) => {
       const data = snapshot.val();
-      if (data && data.lat && data.lng) {
-        const newLatLng = [data.lat, data.lng];
-        setLocation({ lat: data.lat, lng: data.lng });
-        markerRef.current.setLatLng(newLatLng);
-        mapRef.current.panTo(newLatLng, { animate: true });
-      }
+      if (data && data.latitude && data.longitude) {
+  const newLatLng = [data.latitude, data.longitude];
+  setLocation({ lat: data.latitude, lng: data.longitude });
+  markerRef.current.setLatLng(newLatLng);
+  mapRef.current.panTo(newLatLng, { animate: true });
+}
     });
 
     // Listen to Firebase bus details
