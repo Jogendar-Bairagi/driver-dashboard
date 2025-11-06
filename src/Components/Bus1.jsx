@@ -1,85 +1,115 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import L from "leaflet";
 import { getDatabase, ref, onValue } from "firebase/database";
-import { app } from "../firebase";
+import { app } from "../firebase"; // make sure firebase is initialized here
+
+const db = getDatabase(app);
 
 const Bus1 = () => {
-  const [busLocation, setBusLocation] = useState(null);
+  const mapRef = useRef(null);
+  const markerRef = useRef(null);
+  const [busData, setBusData] = useState({
+    name: "",
+    busId: "",
+    busNumber: "" ,
+    Source: "Indore",
+    Destination: "Dewas",
+    Status:"not started",
+  });
+  const [location, setLocation] = useState({ lat: 22.7196, lng: 75.8577 });
 
   useEffect(() => {
-    const db = getDatabase(app);
-    const locationRef = ref(db, "drivers/driver1/location");
+    // Initialize map only once
+    mapRef.current = L.map("map").setView([22.7196, 75.8577], 13);
 
-    // Listen for live updates
-    const unsubscribe = onValue(locationRef, (snapshot) => {
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution: "&copy; OpenStreetMap contributors",
+    }).addTo(mapRef.current);
+
+    // Custom bus icon
+    const busIcon = L.icon({
+      iconUrl: "https://cdn-icons-png.flaticon.com/512/61/61205.png",
+      iconSize: [38, 38],
+      iconAnchor: [19, 38],
+    });
+
+    markerRef.current = L.marker([22.7196, 75.8577], { icon: busIcon }).addTo(
+      mapRef.current
+    );
+
+    // Listen to Firebase location
+    const locRef = ref(db, "drivers/driver1");
+    onValue(locRef, (snapshot) => {
       const data = snapshot.val();
-      if (data && data.latitude && data.longitude) {
-        setBusLocation({
-          lat: data.latitude,
-          lon: data.longitude,
-        });
+      if (data && data.lat && data.lng) {
+        const newLatLng = [data.lat, data.lng];
+        setLocation({ lat: data.lat, lng: data.lng });
+        markerRef.current.setLatLng(newLatLng);
+        mapRef.current.panTo(newLatLng, { animate: true });
       }
     });
 
-    // Cleanup listener on unmount
-    return () => unsubscribe();
-  }, []);
+    // Listen to Firebase bus details
+    const detailsRef = ref(db, "drivers/driver1");
+    onValue(detailsRef, (snapshot) => {
+      const details = snapshot.val();
+      if (details) setBusData(details);
+    });
 
-  if (!busLocation) {
-    return <p style={{ textAlign: "center", marginTop: "50px" }}>Fetching live bus location...</p>;
-  }
+    return () => {
+      mapRef.current.remove();
+    };
+  }, []);
 
   return (
     <div style={styles.container}>
-      {/* Map Section */}
-      <div style={styles.mapContainer}>
-        <iframe
-          key={`${busLocation.lat},${busLocation.lon}`}
-          title="Live Bus Map"
-          width="100%"
-          height="100%"
-          style={{ border: 0, borderRadius: "10px" }}
-          loading="lazy"
-          allowFullScreen
-          src={`https://maps.google.com/maps?q=${busLocation.lat},${busLocation.lon}&z=15&output=embed`}
-        ></iframe>
-      </div>
+      {/* LEFT: Map */}
+      <div id="map" style={styles.map}></div>
 
-      {/* Bus Details */}
-      <div style={styles.details}>
-        <h2>Bus 1 Details</h2>
-        <p><strong>Route:</strong> Indore → Dewas</p>
-        <p><strong>Latitude:</strong> {busLocation.lat}</p>
-        <p><strong>Longitude:</strong> {busLocation.lon}</p>
-        <p><strong>Updated:</strong> {new Date().toLocaleTimeString()}</p>
-        <p><strong>Status:</strong> 🟢 Active</p>
+      {/* RIGHT: Bus Info */}
+      <div style={styles.infoBox}>
+        <h2 style={styles.heading}>🚌 Bus Details</h2>
+        <p><strong>Bus Name:</strong> {busData.name}</p>
+        <p><strong>Bus Number:</strong> {busData.busNumber}</p>
+         <p><strong>Bus Id:</strong> {busData.busId}</p>
+        <p><strong>Source:</strong> {busData.Source}</p>
+        <p><strong>Destination:</strong> {busData.Destination}</p>
+        <p><strong>Status:</strong> {busData.Status}</p>
+        <p>
+          <strong>Current Location:</strong>{" "}
+          {location.lat.toFixed(5)}, {location.lng.toFixed(5)}
+        </p>
       </div>
     </div>
   );
 };
 
+export default Bus1;
+
+// CSS styles (JS object)
 const styles = {
   container: {
     display: "flex",
     flexDirection: "row",
     height: "100vh",
-    backgroundColor: "#f7f7f7",
-    padding: "20px",
-    gap: "20px",
-  },
-  mapContainer: {
-    flex: 2,
-    borderRadius: "10px",
-    overflow: "hidden",
-    boxShadow: "0 0 10px rgba(0,0,0,0.1)",
-  },
-  details: {
-    flex: 1,
-    backgroundColor: "#fff",
-    borderRadius: "10px",
-    padding: "20px",
-    boxShadow: "0 0 10px rgba(0,0,0,0.1)",
+    backgroundColor: "#f8f9fa",
     color: "#333",
+    fontFamily: "Arial, sans-serif",
+  },
+  map: {
+    flex: 2,
+    height: "100%",
+    borderRight: "2px solid #ccc",
+  },
+  infoBox: {
+    flex: 1,
+    padding: "20px",
+    backgroundColor: "#fff",
+    boxShadow: "0 0 10px rgba(0,0,0,0.1)",
+  },
+  heading: {
+    marginBottom: "15px",
+    borderBottom: "2px solid #007bff",
+    paddingBottom: "5px",
   },
 };
-
-export default Bus1;
