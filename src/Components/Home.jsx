@@ -1,6 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import Navbar from "./Navbar";
 const Home = () => {
+  
    const navigate = useNavigate();
   const cards = [
     {
@@ -10,17 +12,19 @@ const Home = () => {
     },
     {
       title: "Passenger Login",
-      img: "https://cdn-icons-png.flaticon.com/512/1995/1995574.png",
+      img: "https://cdn-icons-png.flaticon.com/512/12757/12757672.png",
       path: "/passenger-login",
     },
     {
       title: "Driver Login",
-      img: "https://cdn-icons-png.flaticon.com/512/1995/1995525.png",
+      img: "https://cdn-icons-png.flaticon.com/512/9981/9981856.png",
       path: "/driver-login",
     },
   ];
 
   return (
+  <>
+    <Navbar />
     <div className="cards-container">
       {cards.map((card, index) => (
         <div
@@ -38,7 +42,7 @@ const Home = () => {
           </h2>
         </div>
       ))}
-    </div>
+    </div></>
   );
 };
 

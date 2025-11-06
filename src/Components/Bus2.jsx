@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import L from "leaflet";
 import { getDatabase, ref, onValue } from "firebase/database";
-import { app } from "../firebase"; // make sure firebase is initialized here
+import { app } from "../firebase";
 
 const db = getDatabase(app);
 
-const Bus1 = () => {
+const Bus2 = () => {
   const mapRef = useRef(null);
   const markerRef = useRef(null);
   const [busData, setBusData] = useState({
@@ -37,8 +37,8 @@ const Bus1 = () => {
       mapRef.current
     );
 
-    // Listen to Firebase location
-    const locRef = ref(db, "drivers/driver1");
+    // Listen Firebase location
+    const locRef = ref(db, "drivers/driver2");
     onValue(locRef, (snapshot) => {
       const data = snapshot.val();
       if (data && data.latitude && data.longitude) {
@@ -49,8 +49,8 @@ const Bus1 = () => {
 }
     });
 
-    // Listen to Firebase bus details
-    const detailsRef = ref(db, "drivers/driver1");
+    // Listen  Firebase bus details
+    const detailsRef = ref(db, "drivers/driver2");
     onValue(detailsRef, (snapshot) => {
       const details = snapshot.val();
       if (details) setBusData(details);
@@ -60,31 +60,6 @@ const Bus1 = () => {
       mapRef.current.remove();
     };
   }, []);
-
-  const [address, setAddress] = useState("");
-  useEffect(() => {
-  if (location.lat && location.lng) {
-    const fetchAddress = async () => {
-      try {
-        const response = await fetch(
-          `https://nominatim.openstreetmap.org/reverse?format=json&lat=${location.lat}&lon=${location.lng}`
-        );
-        const data = await response.json();
-        if (data && data.display_name) {
-          setAddress(data.display_name);
-        } else {
-          setAddress("Unknown Location");
-        }
-      } catch (error) {
-        console.error("Error fetching address:", error);
-        setAddress("Unable to fetch location");
-      }
-    };
-
-    fetchAddress();
-  }
-}, [location]);
-
 
   return (
     <div style={styles.container}>
@@ -101,43 +76,37 @@ const Bus1 = () => {
         <p><strong>Destination:</strong> {busData.Destination}</p>
         <p><strong>Status:</strong> {busData.Status}</p>
         <p>
-  <strong>Coordinates:</strong>{" "}
-  {location.lat.toFixed(5)}, {location.lng.toFixed(5)}
-</p>
-<p>
-  <strong>Current Location:</strong> {address || "Fetching location..."}
-</p>
-
+          <strong>Current Location:</strong>{" "}
+          {location.lat.toFixed(5)}, {location.lng.toFixed(5)}
+        </p>
       </div>
     </div>
   );
 };
 
-export default Bus1;
+export default Bus2;
 
 // CSS styles (JS object)
 const styles = {
   container: {
     display: "flex",
     flexDirection: "row",
-    height: "100vh",width: "100%",
+    height: "100vh",
     backgroundColor: "#f8f9fa",
     color: "#333",
     fontFamily: "Arial, sans-serif",
   },
-  
-map: {
-  width: "50%",
-  marginRight: "10px",
-  height: "80%",
-  borderRight: "2px solid #ccc",
-},
-infoBox: {
-  width: "50%",
-  padding: "0px",
-  margin: "0px",
-  borderLeft: "2px solid #ccc",
-},
+  map: {
+    flex: 2,
+    height: "100%",
+    borderRight: "2px solid #ccc",
+  },
+  infoBox: {
+    flex: 1,
+    padding: "20px",
+    backgroundColor: "#fff",
+    boxShadow: "0 0 10px rgba(0,0,0,0.1)",
+  },
   heading: {
     marginBottom: "15px",
     borderBottom: "2px solid #007bff",

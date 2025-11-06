@@ -33,3 +33,43 @@
   transform: translateZ(20px);
  
 }
+
+.navbar {
+  background-color: #121212; /* slightly off-black */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  padding: 7px 0;
+  position: sticky;
+  top: 0;
+  margin: 0px;
+}
+
+.navbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin: 0px;
+}
+
+.navbar-logo {
+  position: absolute;
+  left: 40px; /* moves logo to the left */
+}
+
+.navbar-logo img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+}
+
+.navbar-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, #8a2be2, #00bfff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-align: center;
+  font-family: "Verdana", sans-serif,  Geneva,  sans-serif;
+}

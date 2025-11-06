@@ -82,7 +82,7 @@ const PassengerDashboardOne = () => {
         cursor: "pointer",
       }}
     >
-      {["Indore", "Dewas", "Ujjain", "Bhopal"].map((city) => (
+      {["Indore", "Dewas"].map((city) => (
         <option
           key={city}
           value={city}
@@ -117,7 +117,7 @@ const PassengerDashboardOne = () => {
         color: "#222",
         cursor: "pointer",
       }}
-    > {["Indore", "Dewas", "Ujjain", "Bhopal"].map((city) => (
+    > {["Indore", "Dewas"].map((city) => (
         <option
           key={city}
           value={city}

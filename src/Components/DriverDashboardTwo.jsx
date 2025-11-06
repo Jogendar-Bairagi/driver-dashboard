@@ -7,15 +7,15 @@ import L from "leaflet";
 
 const db = getDatabase(app);
 
-const DriverDashboardOne = () => {
+const DriverDashboardTwo = () => {
   const [Status, setStatus] = useState(false);
   const [location, setLocation] = useState({ lat: null, lon: null });
   const [history, setHistory] = useState([]);
 
   const driverDetails = {
-    name: "Rajesh Kumar",
-    busId: "driver1",
-    busNumber: "MP09 AB 5678",
+    name: "Naman Kumar",
+    busId: "driver2",
+    busNumber: "MP09 AB 5679",
     Source: "Indore",
     Destination: "Dewas",
     Status: "",
@@ -157,9 +157,9 @@ const DriverDashboardOne = () => {
           <tbody>
             {history.map((item, index) => (
               <tr key={index}>
-                <td style={{ border: "1px solid #ddd", padding: "10px" }}>{item.date}</td>
-                <td style={{ border: "1px solid #ddd", padding: "10px" }}>{item.route}</td>
-                <td style={{ border: "1px solid #ddd", padding: "10px" }}>{item.timing}</td>
+                <td style={{ border: "1px solid #ddd", padding: "10px",color: "white" }}>{item.date}</td>
+                <td style={{ border: "1px solid #ddd", padding: "10px",color: "white"  }}>{item.route}</td>
+                <td style={{ border: "1px solid #ddd", padding: "10px",color: "white"  }}>{item.timing}</td>
               </tr>
             ))}
           </tbody>
@@ -169,4 +169,4 @@ const DriverDashboardOne = () => {
   );
 };
 
-export default DriverDashboardOne;
+export default DriverDashboardTwo;

@@ -20,7 +20,8 @@ const auth = getAuth(app);
 
       if (user.email === "driver1@gmail.com") {
         navigate("/driver-dashboard-one");
-      } else {
+      } else if(user.email === "driver2@gmail.com") {
+  navigate("/driver-dashboard-two")} else {
         setErrMsg("You are not authorized as Driver!");
       }
     })

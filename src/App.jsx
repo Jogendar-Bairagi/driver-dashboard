@@ -10,7 +10,9 @@ import {getDatabase, ref, set} from "firebase/database";
 import {app} from "./firebase";
 import ProtectedRoute from "./ProtectedRoute";
 import PassengerDashboardOne from "./Components/PassengerDashboardOne";
+import DriverDashboardTwo from "./Components/DriverDashboardTwo";
 import Bus1 from "./Components/Bus1";
+import Bus2 from "./Components/Bus2";
 
 const db = getDatabase(app);
 
@@ -25,8 +27,11 @@ function App() {
     <Route path="/passenger-login" element={<PassengerLogin />} />
     <Route path="/driver-login" element={<DriverLogin />} />
     <Route path="/driver-dashboard-one" element={<ProtectedRoute requiredEmail="driver1@gmail.com"><DriverDashboardOne /></ProtectedRoute>} />
+    <Route path="/driver-dashboard-two" element={<ProtectedRoute requiredEmail="driver2@gmail.com"><DriverDashboardTwo /></ProtectedRoute>} />    
     <Route path="/passenger-dashboard-one" element={<PassengerDashboardOne />} />
-    <Route path="/bus1" element={<Bus1 />} />
+    <Route path="/bus1"  element={ <ProtectedRoute>  <Bus1 /> </ProtectedRoute>} />
+    <Route path="/bus2"  element={ <ProtectedRoute>  <Bus2 /> </ProtectedRoute> }/>
+
     </Routes>
     </>
   );
