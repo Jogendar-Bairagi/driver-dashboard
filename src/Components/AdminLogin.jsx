@@ -8,8 +8,8 @@ const AdminLogin = () => {
   const navigate = useNavigate();
 const auth = getAuth(app);
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("admin@gmail.com");
+  const [password, setPassword] = useState("1234567");
   const [ErrMsg, setErrMsg] = useState("");
 
   const SignInAdmin = () => {

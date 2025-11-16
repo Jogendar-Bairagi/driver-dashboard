@@ -12,8 +12,8 @@ const auth = getAuth(app);
 const PassengerLogin = () => {
   const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(true);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("passenger1@gmail.com");
+  const [password, setPassword] = useState("1234567");
 
   // ✅ Sign Up new user
   const handleSignUp = () => {

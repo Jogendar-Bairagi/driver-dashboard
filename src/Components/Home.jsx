@@ -17,7 +17,7 @@ const Home = () => {
     },
     {
       title: "Driver Login",
-      img: "https://cdn-icons-png.flaticon.com/512/9981/9981856.png",
+      img: "https://cdn-icons-png.flaticon.com/512/1535/1535791.png",
       path: "/driver-login",
     },
   ];
@@ -25,7 +25,8 @@ const Home = () => {
   return (
   <>
     <Navbar />
-    <div className="cards-container">
+    <div className="container">
+      <div className="cards-container">
       {cards.map((card, index) => (
         <div
           key={index}
@@ -37,11 +38,12 @@ const Home = () => {
             alt={card.title}
             className=""
           />
-          <h2 className="card-title">
+          <h1 className="card-title">
             {card.title}
-          </h2>
+          </h1>
         </div>
       ))}
+      </div>
     </div></>
   );
 };
