@@ -1,16 +1,67 @@
-# React + Vite
+🚍 Real-Time Local Area Bus Tracking System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Live Demo - https://driver-dashboard-six.vercel.app/
+password - 1234567
 
-Currently, two official plugins are available:
+A full-stack real-time bus tracking system designed for local routes, built using React, Firebase Realtime Database, Leaflet Maps, and Geolocation API.
+This system includes:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Driver App – Sends live GPS location to Firebase
 
-## React Compiler
+Passenger App – Fetches location from Firebase and shows bus movement on map
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+⭐ Features
+🔵 Driver Dashboard
 
-## Expanding the ESLint configuration
+Real-time GPS tracking using browser/mobile GPS
+Automatically updates latitude & longitude every few seconds
+Trip Start/Stop functionality
+Location stored in Firebase Realtime Database
+Simple UI optimized for mobile devices
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+🟢 Passenger Dashboard
+Shows live bus location on map
+Updates automatically using Firebase listeners
+Uses Leaflet + OpenStreetMap tiles
+Route map and live marker updates
+
+⚙️ How It Works
+Driver Side
+Driver opens the Driver App page
+Allows GPS permission
+When “Start Trip” is pressed →
+GPS coordinates start sending to Firebase
+Passenger instantly sees the updated location
+
+Passenger Side
+Passenger opens Passenger App page
+Map renders with bus marker
+Bus location updates in real time using Firebase listeners
+
+🔧 Setup Instructions
+1️⃣ Clone the Repository
+git clone https://github.com/your-username/local-bus-tracking.git
+cd local-bus-tracking
+
+2️⃣ Install Dependencies
+npm install
+
+3️⃣ Configure Firebase
+Create firebase.js:
+
+import { initializeApp } from "firebase/app";
+
+const firebaseConfig = {
+  apiKey: "YOUR_KEY",
+  authDomain: "YOUR_DOMAIN",
+  databaseURL: "YOUR_DB_URL",
+  projectId: "YOUR_ID",
+  storageBucket: "YOUR_BUCKET",
+  messagingSenderId: "YOUR_MSG",
+  appId: "YOUR_APP"
+};
+
+export const app = initializeApp(firebaseConfig);
+
+4️⃣ Start Development Server
+npm run dev
