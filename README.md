@@ -40,8 +40,8 @@ Bus location updates in real time using Firebase listeners
 
 🔧 Setup Instructions
 1️⃣ Clone the Repository
-git clone https://github.com/your-username/local-bus-tracking.git
-cd local-bus-tracking
+git clone https://github.com/jogendar-bairagi/driver-dashboard.git
+cd driver-dashboard
 
 2️⃣ Install Dependencies
 npm install
