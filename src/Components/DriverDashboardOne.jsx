@@ -89,7 +89,7 @@ const DriverDashboardOne = () => {
 
   return (
     <div style={{ padding: "30px", fontFamily: "Arial" }}>
-      <h1 style={{ textAlign: "center" }}>Driver Dashboard</h1>
+      <h1 style={{ textAlign: "center", color: "#f9f9f9", }}>Driver Dashboard</h1>
 
       {/* Trip Control Card */}
       <div
@@ -99,6 +99,8 @@ const DriverDashboardOne = () => {
           padding: "20px",
           margin: "20px 0",
           boxShadow: "0 0 10px rgba(0,0,0,0.1)",
+          backgroundColor: "#f9f9f9",
+          
         }}
       >
         <h2>Trip Control</h2>
@@ -116,12 +118,13 @@ const DriverDashboardOne = () => {
         >
           {Status ? "Stop" : "Start"} Trip
         </button>
-      </div>
+      </div> 
 
       {/* Driver Details Card */}
       <div
         style={{
           border: "1px solid #ccc",
+          backgroundColor: "#f9f9f9",
           borderRadius: "10px",
           padding: "20px",
           margin: "20px 0",
@@ -143,6 +146,7 @@ const DriverDashboardOne = () => {
           padding: "20px",
           marginTop: "20px",
           boxShadow: "0 0 10px rgba(0,0,0,0.1)",
+          backgroundColor: "#f9f9f9",
         }}
       >
         <h2>Trip History</h2>

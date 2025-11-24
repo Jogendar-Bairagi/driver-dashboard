@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { getDatabase, ref, onValue } from "firebase/database";
 import { app } from "../firebase";
-import "../index.css";
 
 const AdminDashboard = () => {
   
@@ -39,7 +38,7 @@ const handleActiveCount = () => {
   };
 
   return (
-    <div style={{ padding: "30px", fontFamily: "Arial" }}>
+    <div style={{ padding: "30px", fontFamily: "Arial", color: "#f9f9f9" }}>
       <h1>Admin Dashboard</h1>
       
 <div style={cardContainerStyle}>
@@ -82,24 +81,30 @@ const handleActiveCount = () => {
 };
 
 const cardContainerStyle = {
-    
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
-    gap: "20px",
-    width: "80%",
-    marginTop: "20px",
-  };
+  display: "grid",
+  gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
+  gap: "20px",
+  width: "80%",
+  margin: "20px auto", // FIXED
+  justifyContent: "center",
+};
 
 
 const cardStyle = {
-   backgroundColor: "white",
-    color: "black",
-    borderRadius: "10px",
-    padding: "25px",
-    textAlign: "center",
-    boxShadow: "0 4px 8px rgba(0,0,0,0.2)",
-    transition: "transform 0.2s",
-    cursor: "pointer",
+  backgroundColor: "white",
+  color: "black",
+  borderRadius: "10px",
+  padding: "25px",
+
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+
+  boxShadow: "0 4px 8px rgba(0,0,0,0.2)",
+  transition: "transform 0.2s",
+  cursor: "pointer",
 };
+
 
 export default AdminDashboard;
